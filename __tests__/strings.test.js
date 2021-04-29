@@ -12,6 +12,16 @@ describe('/strings', () => {
           done();
         });
     });
+
+    it('returns "Hello, turtle!" when passed "turtle"', done => {
+      request(app)
+        .get('/strings/hello/turtle')
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 'Hello, turtle!' });
+          done();
+        });
+    });
   });
 
   describe('GET /upper/{string}', () => {
@@ -49,7 +59,7 @@ describe('/strings', () => {
         });
     });
 
-    xit('returns the first n character of the string when passed a query parameter', done => {
+    it('returns the first n character of the string when passed a query parameter', done => {
       request(app)
         .get('/strings/first-characters/sd32fg45')
         .query({ length: 4 })
