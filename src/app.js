@@ -54,7 +54,14 @@ app.get('/numbers/subtract/:number1/from/:number2', function (req, res) {
 })
 
 app.post('/numbers/multiply', function (req, res) {
-  res.status(200).json({ result: multiply(req.body.a, req.body.b) });
+  if (!req.body.a || !req.body.b) {
+    res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  }
+  if (isNaN(req.body.a) || isNaN(req.body.b)) {
+    res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  } else {
+    res.status(200).json({ result: numbers.multiply(req.body.a, req.body.b) });
+  }
 });
 
 module.exports = app;
