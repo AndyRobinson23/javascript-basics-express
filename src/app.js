@@ -8,6 +8,8 @@ const app = express();
 
 app.use(express.json());
 
+// Strings 
+
 app.get('/strings/hello/:string', function (req, res) {
   res.send({ result: strings.sayHello(req.params.string)});
   res.sendStatus(200);
@@ -32,6 +34,8 @@ app.get('/strings/first-characters/:string', function (req, res) {
   res.send({result: strings.firstCharacters(req.params.string, 4)});
   res.sendStatus(200);
 })
+
+// Numbers
 
 app.get('/numbers/add/:number1/and/:number2', function (req, res) {
   const number1 = parseInt(req.params.number1);
@@ -90,6 +94,8 @@ app.post('/numbers/remainder', function (req, res) {
   }
 });
 
+// Booleans
+
 app.post('/booleans/negate', function(req, res) {
   res.status(200).json({result: booleans.negate(req.body.value)})
 })
@@ -113,6 +119,8 @@ app.get('/booleans/:string/starts-with/:character', function (req, res) {
     res.status(200).json({result: booleans.startsWith(req.params.character, req.params.string) });
   }
 })
+
+// Arrays
 
 app.post('/arrays/element-at-index/:index', function (req, res) {
   res.status(200).json({result: arrays.getNthElement(req.params.index, req.body.array)});
