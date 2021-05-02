@@ -3,7 +3,7 @@ const add = (a, b) => {
 };
 
 const subtract = (a, b) => {
-  return a - b;
+  return b - a;
 };
 
 const multiply = (a, b) => {

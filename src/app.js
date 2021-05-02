@@ -4,6 +4,8 @@ const numbers = require('./lib/numbers');
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/strings/hello/:string', function (req, res) {
   res.send({ result: strings.sayHello(req.params.string)});
   res.sendStatus(200);
@@ -33,12 +35,26 @@ app.get('/numbers/add/:number1/and/:number2', function (req, res) {
   const number1 = parseInt(req.params.number1);
   const number2 = parseInt(req.params.number2);
   if(!Number.isNaN(number1) && !Number.isNaN(number2)) {
-    console.log('if statement');
     res.send({result: numbers.add(Number(req.params.number1), Number(req.params.number2))});
     res.sendStatus(200);
   } else {
     res.status(400).send({error: 'Parameters must be valid numbers.'});
   }
 })
+
+app.get('/numbers/subtract/:number1/from/:number2', function (req, res) {
+  const number1 = parseInt(req.params.number1);
+  const number2 = parseInt(req.params.number2);
+  if (!Number.isNaN(number1) && !Number.isNaN(number2)) {
+    res.send({result: numbers.subtract(req.params.number1, req.params.number2)});
+    res.sendStatus(200);
+  } else {
+    res.status(400).send({error: 'Parameters must be valid numbers.'});
+  }
+})
+
+app.post('/numbers/multiply', function (req, res) {
+  res.status(200).json({ result: multiply(req.body.a, req.body.b) });
+});
 
 module.exports = app;
